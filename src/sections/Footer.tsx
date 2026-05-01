@@ -1,0 +1,359 @@
+import { useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Twitter,
+  Youtube,
+  ArrowRight,
+  Shield,
+  FileText,
+  HelpCircle
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Input } from '@/components/ui/input';
+import logo from '@/assets/logo.png';
+import ImageLoader from '@/components/ImageLoader';
+
+const footerLinks = {
+  product: [
+    { name: 'Features', href: '#about' },
+    { name: 'FactoryOps', href: '#factoryops' },
+    { name: 'Real-time Insights', href: '#insights' },
+    { name: 'Pricing', href: '#' },
+    { name: 'API', href: '#' },
+  ],
+  company: [
+    { name: 'About Us', href: '#' },
+    { name: 'Careers', href: '#' },
+    { name: 'Press', href: '#' },
+    { name: 'Partners', href: '#' },
+    { name: 'Contact', href: '#contact' },
+  ],
+  resources: [
+    { name: 'Documentation', href: '#' },
+    { name: 'Blog', href: '#' },
+    { name: 'Case Studies', href: '#reviews' },
+    { name: 'Webinars', href: '#' },
+    { name: 'Support', href: '#' },
+  ],
+  legal: [
+    { name: 'Privacy Policy', href: '#', icon: Shield },
+    { name: 'Terms of Service', href: '#', icon: FileText },
+    { name: 'Cookie Policy', href: '#', icon: HelpCircle },
+  ],
+};
+
+const socialLinks = [
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/company/cittagent/?viewAsMember=true' },
+  { name: 'Twitter', icon: Twitter, href: '#' },
+  { name: 'YouTube', icon: Youtube, href: '#' },
+];
+
+export default function Footer() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-50px" });
+  const [isTrialPopoverOpen, setIsTrialPopoverOpen] = useState(false);
+  const [isDemoPopoverOpen, setIsDemoPopoverOpen] = useState(false);
+  const [isSubscribePopoverOpen, setIsSubscribePopoverOpen] = useState(false);
+
+  return (
+    <footer
+      ref={containerRef}
+      id="contact"
+      className="relative pt-16 lg:pt-24 pb-8 overflow-hidden"
+    >
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-500/10 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="section-content relative z-10">
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="glass-enhanced rounded-3xl p-8 lg:p-12 border border-white/10 mb-16 will-change-transform"
+        >
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                Ready to Transform Your
+                <span className="text-gradient"> Factory Operations?</span>
+              </h2>
+              <p className="text-white/60 mb-6">
+                Join manufacturers already using FactoryOps AI to optimize their operations
+                and reduce costs. Start your free trial today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Popover open={isTrialPopoverOpen} onOpenChange={setIsTrialPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      size="lg"
+                      onClick={() => {
+                        setIsTrialPopoverOpen(true);
+                        setTimeout(() => setIsTrialPopoverOpen(false), 1500);
+                      }}
+                      className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white border-0"
+                    >
+                      Start Free Trial
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                    side="top"
+                    sideOffset={10}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                        <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                        <p className="text-sm text-white/70">Free trials will be available shortly.</p>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+                <Popover open={isDemoPopoverOpen} onOpenChange={setIsDemoPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      onClick={() => {
+                        setIsDemoPopoverOpen(true);
+                        setTimeout(() => setIsDemoPopoverOpen(false), 1500);
+                      }}
+                      className="border-white/20 text-white hover:bg-white/5"
+                    >
+                      Schedule Demo
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                    side="top"
+                    sideOffset={10}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                        <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                        <p className="text-sm text-white/70">Demo scheduling will be available shortly.</p>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+            <div className="lg:pl-8">
+              <div className="bg-white/5 rounded-2xl p-6">
+                <h3 className="text-white font-semibold mb-4">Subscribe to Updates</h3>
+                <p className="text-white/60 text-sm mb-4">
+                  Get the latest news and insights on industrial AI and smart manufacturing.
+                </p>
+                <div className="flex gap-2">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-cyan-400"
+                  />
+                  <Popover open={isSubscribePopoverOpen} onOpenChange={setIsSubscribePopoverOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        className="bg-cyan-500 hover:bg-cyan-400 text-white px-6"
+                        onClick={() => {
+                          setIsSubscribePopoverOpen(true);
+                          setTimeout(() => setIsSubscribePopoverOpen(false), 1500);
+                        }}
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                      side="top"
+                      sideOffset={10}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                          <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                          <p className="text-sm text-white/70">Newsletter subscriptions will be available shortly.</p>
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Main Footer Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12 pt-50 text-center md:text-left"
+        >
+          {/* Brand Column */}
+          <div className="col-span-2 flex flex-col items-center md:items-start">
+            <a href="#" className="flex justify-center md:justify-start items-center gap-2 mb-2 -mt-10 w-full md:w-auto">
+              <div className="relative h-32 w-auto flex items-start">
+                <ImageLoader
+                  src={logo}
+                  alt="FactoryOps Logo"
+                  priority={true}
+                  className="h-full w-auto object-contain scale-[1.8] origin-center md:origin-left will-change-transform"
+                  placeholderClassName="scale-[1.8] origin-center md:origin-left"
+                  style={{ filter: 'brightness(1.5)' }}
+                />
+              </div>
+            </a>
+            <p className="text-white/60 text-sm mb-6 max-w-xs -mt-12 mx-auto md:mx-0">
+              AI-powered industrial intelligence platform for modern manufacturing operations.
+            </p>
+
+            {/* Contact Info */}
+            <div className="space-y-3 w-full">
+              <div className="flex items-center justify-center md:justify-start gap-3 text-sm text-white/60">
+                <MapPin className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                <span>CA Site, 1, HAL 3rd Stage EXTN,<br className="hidden md:block" />
+                  behind Hotel Leela Palace, HAL 2nd Stage,<br className="hidden md:block" />
+                  Kodihalli, Bengaluru, Karnataka 560008<br className="hidden md:block" />
+                  Platform</span>
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-3 text-sm text-white/60">
+                <Phone className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                <span>+91 90087 63311</span>
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-3 text-sm text-white/60">
+                <Mail className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                <span>support@cittagent.com</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Product Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Product</h4>
+            <ul className="space-y-3">
+              {footerLinks.product.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-white/60 hover:text-cyan-400 transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Company</h4>
+            <ul className="space-y-3">
+              {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-white/60 hover:text-cyan-400 transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Resources</h4>
+            <ul className="space-y-3">
+              {footerLinks.resources.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-white/60 hover:text-cyan-400 transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Legal</h4>
+            <ul className="space-y-3">
+              {footerLinks.legal.map((link) => (
+                <li key={link.name} className="flex justify-center md:justify-start">
+                  <a
+                    href={link.href}
+                    className="text-sm text-white/60 hover:text-cyan-400 transition-colors flex items-center gap-2"
+                  >
+                    <link.icon className="w-3 h-3" />
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+
+        {/* Bottom Bar */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="pt-8 border-t border-white/10"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Copyright */}
+            <p className="text-sm text-white/50 text-center md:text-left">
+              © {new Date().getFullYear()} Cittagent Technologies. All rights reserved.
+            </p>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-cyan-500/20 hover:text-cyan-400 transition-[background-color,color]"
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+
+            {/* Security Badge */}
+            <div className="flex items-center gap-2 text-sm text-white/50">
+              <Shield className="w-4 h-4 text-emerald-400" />
+              <span>HTTPS Secured</span>
+            </div>
+          </div>
+        </motion.div>
+      </div >
+    </footer >
+  );
+}
