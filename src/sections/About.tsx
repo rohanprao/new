@@ -56,30 +56,32 @@ function FeatureCard({
         ease: [0.22, 1, 0.36, 1]
       }}
       whileHover={{
-        y: -10,
-        rotateX: 5,
+        y: -6,
         transition: { duration: 0.3 }
       }}
       className="group perspective-1000 will-change-transform"
     >
-      <div className="relative h-full glass-enhanced rounded-2xl p-6 lg:p-8 border border-white/10 hover:border-cyan-400/30 transition-[transform,border-color] duration-300">
+      <div
+        className="relative h-full bg-white dark:bg-[#0f1120] rounded-xl p-6 lg:p-8 border border-slate-200 dark:border-purple-900/30 hover:border-purple-400/40 transition-[transform,border-color,box-shadow] duration-300"
+        style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}
+      >
         {/* Glow Effect */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/0 to-blue-600/0 group-hover:from-cyan-500/10 group-hover:to-blue-600/10 transition-all duration-500" />
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-500/0 to-blue-600/0 group-hover:from-purple-500/8 group-hover:to-blue-600/8 transition-all duration-500" />
 
         {/* Icon */}
         <div className="relative mb-6">
-          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center group-hover:from-cyan-500/30 group-hover:to-blue-600/30 transition-all duration-300">
-            <feature.icon className="w-7 h-7 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
+          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-600/20 flex items-center justify-center group-hover:from-purple-500/30 group-hover:to-blue-600/30 transition-all duration-300">
+            <feature.icon className="w-7 h-7 text-purple-500 dark:text-purple-400 group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors" />
           </div>
           {/* Decorative line */}
-          <div className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-14 transition-all duration-500" />
+          <div className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-14 transition-all duration-500" />
         </div>
 
         {/* Content */}
-        <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-cyan-100 transition-colors">
+        <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
           {feature.title}
         </h3>
-        <p className="text-white/60 leading-relaxed text-sm lg:text-base">
+        <p className="text-slate-600 dark:text-white/60 leading-relaxed text-sm lg:text-base">
           {feature.description}
         </p>
       </div>
@@ -91,15 +93,12 @@ export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
-
-
   return (
     <section
       ref={containerRef}
       id="about"
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-24 lg:py-32 overflow-hidden bg-white dark:bg-[#080810]"
     >
-
       <div className="section-content relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
@@ -107,27 +106,27 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800/40 mb-6"
           >
-            <Cpu className="w-4 h-4 text-cyan-400" />
-            <span className="text-sm text-white/70">About Our Platform</span>
+            <Cpu className="w-4 h-4 text-purple-500" />
+            <span className="text-sm font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider">Platform Capabilities</span>
           </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="heading-2 text-white mb-6"
+            className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6"
           >
             Intelligent Industrial
-            <span className="text-gradient"> Operations Platform</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600"> Operations Platform</span>
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="body-large text-white/60"
+            className="text-lg text-slate-600 dark:text-white/60 leading-relaxed"
           >
             FactoryOps AI combines cutting-edge artificial intelligence with deep industrial
             expertise to deliver a comprehensive solution for modern manufacturing operations.
@@ -149,11 +148,11 @@ export default function About() {
           transition={{
             duration: 0.5,
             ease: [0.22, 1, 0.36, 1],
-            delay: 0.6 // Reverted to original delay as 'index' is not defined here.
+            delay: 0.6
           }}
           className="mt-20 lg:mt-24"
         >
-          <div className="glass-enhanced rounded-3xl p-8 lg:p-12 border border-white/10">
+          <div className="rounded-3xl p-8 lg:p-12 bg-gradient-to-br from-[#080810] to-[#0f0820] border border-purple-900/30">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 { value: '99.9%', label: 'System Uptime', description: 'Reliable monitoring' },
@@ -168,7 +167,7 @@ export default function About() {
                   transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
                   className="text-center"
                 >
-                  <div className="text-3xl lg:text-4xl font-bold text-gradient mb-2">
+                  <div className="text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-2">
                     {stat.value}
                   </div>
                   <div className="text-white font-medium mb-1">{stat.label}</div>

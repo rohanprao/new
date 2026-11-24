@@ -44,19 +44,31 @@ export default function FactoryOps() {
     <section
       ref={containerRef}
       id="factoryops"
-      className="relative py-24 lg:py-32 overflow-hidden border-t border-white/5"
+      className="relative py-24 lg:py-32 overflow-hidden bg-slate-50 dark:bg-[#0a0a18] border-t border-slate-200/60 dark:border-white/5"
     >
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-50/40 via-transparent to-blue-50/30 dark:from-purple-900/5 dark:via-transparent dark:to-blue-900/5 pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-16 max-w-4xl mx-auto">
+          {/* Overline badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800/40 mb-6"
+          >
+            <span className="text-sm font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider">How It Works</span>
+          </motion.div>
+
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6"
+            className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6"
           >
             From Individual Assets to Entire Assembly Lines —<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 animate-gradient">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-500 to-teal-400 animate-gradient">
               We Monitor It All
             </span>
           </motion.h2>
@@ -64,7 +76,7 @@ export default function FactoryOps() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-white/60 text-lg max-w-2xl mx-auto"
+            className="text-slate-600 dark:text-white/60 text-lg max-w-2xl mx-auto"
           >
             Deployment is simple. Our hardware-agnostic platform gets you live data without stopping your production line.
           </motion.p>
@@ -73,9 +85,9 @@ export default function FactoryOps() {
         <div className="relative max-w-4xl mx-auto">
           {/* Animated Vertical Line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 hidden md:block overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/20 via-purple-500/20 to-emerald-500/20" />
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-500/20 via-blue-500/20 to-teal-400/20" />
             <motion.div
-              className="absolute top-0 left-0 right-0 bg-gradient-to-b from-cyan-400 via-purple-400 to-emerald-400 origin-top"
+              className="absolute top-0 left-0 right-0 bg-gradient-to-b from-purple-500 via-blue-500 to-teal-400 origin-top"
               style={{ scaleY: lineHeight }}
             />
           </div>
@@ -91,41 +103,39 @@ export default function FactoryOps() {
                 className={`relative flex flex-col md:flex-row items-center gap-8 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
                   }`}
               >
-                {/* Enhanced Connector Dot with Static Glow */}
+                {/* Connector Dot */}
                 <div
                   className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full z-10 hidden md:block"
                   style={{
                     boxShadow: `0 0 12px 2px ${step.glowColor}`,
                   }}
                 >
-                  <div className={`w-full h-full rounded-full bg-gradient-to-br ${step.gradient} border-2 border-white/20`} />
+                  <div className={`w-full h-full rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-teal-400 border-2 border-white/20`} />
                 </div>
 
-                {/* Enhanced Card with Gradient Border */}
+                {/* Vention-style Card */}
                 <div className="flex-1 text-center md:text-left w-full">
                   <div
-                    className={`relative p-[2px] rounded-2xl bg-gradient-to-br ${step.gradient} ${index % 2 === 0 ? "md:text-left" : "md:text-right"
+                    className={`relative rounded-xl bg-white dark:bg-[#0f1120] border border-slate-200 dark:border-purple-900/30 p-6 ${index % 2 === 0 ? "md:text-left" : "md:text-right"
                       }`}
+                    style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}
                   >
-
-                    <div className="relative p-6 rounded-2xl bg-[#020c1b] backdrop-blur-[4px] [contain:layout_style]">
-                      <h3 className={`text-2xl font-bold mb-2 flex items-center gap-3 ${index % 2 === 0 ? "md:justify-start" : "md:justify-end"
-                        } justify-center`}>
-                        <span className={`flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-sm font-extrabold text-white shadow-lg`}>
-                          {step.id}
-                        </span>
-                        <span className={`text-transparent bg-clip-text bg-gradient-to-r ${step.gradient}`}>
-                          {step.title}
-                        </span>
-                      </h3>
-                      <p className="text-white/70 leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
+                    <h3 className={`text-2xl font-bold mb-2 flex items-center gap-3 ${index % 2 === 0 ? "md:justify-start" : "md:justify-end"
+                      } justify-center`}>
+                      <span className={`flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-sm font-extrabold text-white shadow-lg`}>
+                        {step.id}
+                      </span>
+                      <span className={`text-transparent bg-clip-text bg-gradient-to-r ${step.gradient}`}>
+                        {step.title}
+                      </span>
+                    </h3>
+                    <p className="text-slate-600 dark:text-white/70 leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
 
-                {/* Enhanced Icon with Static Glow */}
+                {/* Icon — slightly larger (w-24 h-24) */}
                 <div className="flex-1 flex justify-center">
                   <div className="relative">
                     {/* Static glow effect */}
@@ -133,12 +143,12 @@ export default function FactoryOps() {
 
                     {/* Main Icon */}
                     <div
-                      className={`relative w-20 h-20 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-white border-2 border-white/20 shadow-2xl`}
+                      className={`relative w-24 h-24 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-white border-2 border-white/20 shadow-2xl`}
                       style={{
                         boxShadow: `0 0 25px 5px ${step.glowColor}`,
                       }}
                     >
-                      <step.icon className="w-7 h-7" strokeWidth={1.5} />
+                      <step.icon className="w-9 h-9" strokeWidth={1.5} />
                     </div>
                   </div>
                 </div>
@@ -147,6 +157,6 @@ export default function FactoryOps() {
           </div>
         </div>
       </div>
-    </section >
+    </section>
   );
 }

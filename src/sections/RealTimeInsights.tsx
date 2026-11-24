@@ -76,20 +76,20 @@ function MachineCard({ machine, index }: { machine: MachineData; index: number }
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group"
     >
-      <div className={`relative glass-enhanced rounded-2xl p-5 border border-white/10 hover:border-cyan-400/30 transition-all duration-300 overflow-hidden bg-gradient-to-br ${statusBgColors[data.status]}`}>
+      <div className={`relative bg-white dark:bg-[#0f1120] rounded-2xl p-5 border border-slate-200 dark:border-purple-900/30 hover:border-purple-400/30 transition-all duration-300 overflow-hidden shadow-sm bg-gradient-to-br ${statusBgColors[data.status]}`}>
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className={`w-3 h-3 rounded-full ${statusColors[data.status]}`} />
             <div>
-              <h4 className="text-white font-semibold text-sm">{data.name}</h4>
-              <span className="text-xs text-white/50">{data.id}</span>
+              <h4 className="text-slate-900 dark:text-white font-semibold text-sm">{data.name}</h4>
+              <span className="text-xs text-slate-500 dark:text-white/50">{data.id}</span>
             </div>
           </div>
-          <div className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${data.status === 'running' ? 'bg-emerald-500/20 text-emerald-400' :
-            data.status === 'idle' ? 'bg-amber-500/20 text-amber-400' :
-              data.status === 'warning' ? 'bg-orange-500/20 text-orange-400' :
-                'bg-red-500/20 text-red-400'
+          <div className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${data.status === 'running' ? 'bg-emerald-500/20 text-emerald-500 dark:text-emerald-400' :
+            data.status === 'idle' ? 'bg-amber-500/20 text-amber-500 dark:text-amber-400' :
+              data.status === 'warning' ? 'bg-orange-500/20 text-orange-500 dark:text-orange-400' :
+                'bg-red-500/20 text-red-500 dark:text-red-400'
             }`}>
             {data.status}
           </div>
@@ -98,57 +98,57 @@ function MachineCard({ machine, index }: { machine: MachineData; index: number }
         {/* Metrics Grid */}
         <div className="grid grid-cols-2 gap-3">
           {/* Power */}
-          <div className="bg-white/5 rounded-lg p-3">
+          <div className="bg-slate-50 dark:bg-purple-900/10 rounded-lg p-3 border border-slate-200/50 dark:border-transparent">
             <div className="flex items-center gap-2 mb-1">
-              <Zap className="w-3 h-3 text-cyan-400" />
-              <span className="text-xs text-white/50">Power</span>
+              <Zap className="w-3 h-3 text-purple-500 dark:text-purple-400" />
+              <span className="text-xs text-slate-500 dark:text-white/50">Power</span>
             </div>
-            <div className="text-lg font-semibold text-white">
+            <div className="text-lg font-semibold text-slate-900 dark:text-white">
               {data.power.toFixed(1)}
-              <span className="text-sm text-white/50 ml-1">kW</span>
+              <span className="text-sm text-slate-500 dark:text-white/50 ml-1">kW</span>
             </div>
           </div>
 
           {/* Pressure */}
-          <div className="bg-white/5 rounded-lg p-3">
+          <div className="bg-slate-50 dark:bg-purple-900/10 rounded-lg p-3 border border-slate-200/50 dark:border-transparent">
             <div className="flex items-center gap-2 mb-1">
-              <Gauge className="w-3 h-3 text-purple-400" />
-              <span className="text-xs text-white/50">Pressure</span>
+              <Gauge className="w-3 h-3 text-purple-500 dark:text-purple-400" />
+              <span className="text-xs text-slate-500 dark:text-white/50">Pressure</span>
             </div>
-            <div className="text-lg font-semibold text-white">
+            <div className="text-lg font-semibold text-slate-900 dark:text-white">
               {data.pressure.toFixed(1)}
-              <span className="text-sm text-white/50 ml-1">bar</span>
+              <span className="text-sm text-slate-500 dark:text-white/50 ml-1">bar</span>
             </div>
           </div>
 
           {/* Temperature */}
-          <div className="bg-white/5 rounded-lg p-3">
+          <div className="bg-slate-50 dark:bg-purple-900/10 rounded-lg p-3 border border-slate-200/50 dark:border-transparent">
             <div className="flex items-center gap-2 mb-1">
-              <Thermometer className="w-3 h-3 text-amber-400" />
-              <span className="text-xs text-white/50">Temp</span>
+              <Thermometer className="w-3 h-3 text-amber-500 dark:text-amber-400" />
+              <span className="text-xs text-slate-500 dark:text-white/50">Temp</span>
             </div>
-            <div className="text-lg font-semibold text-white">
+            <div className="text-lg font-semibold text-slate-900 dark:text-white">
               {data.temperature.toFixed(0)}
-              <span className="text-sm text-white/50 ml-1">°C</span>
+              <span className="text-sm text-slate-500 dark:text-white/50 ml-1">°C</span>
             </div>
           </div>
 
           {/* Efficiency */}
-          <div className="bg-white/5 rounded-lg p-3">
+          <div className="bg-slate-50 dark:bg-purple-900/10 rounded-lg p-3 border border-slate-200/50 dark:border-transparent">
             <div className="flex items-center gap-2 mb-1">
-              <Activity className="w-3 h-3 text-emerald-400" />
-              <span className="text-xs text-white/50">Efficiency</span>
+              <Activity className="w-3 h-3 text-emerald-500 dark:text-emerald-400" />
+              <span className="text-xs text-slate-500 dark:text-white/50">Efficiency</span>
             </div>
-            <div className="text-lg font-semibold text-white">
+            <div className="text-lg font-semibold text-slate-900 dark:text-white">
               {data.efficiency.toFixed(0)}
-              <span className="text-sm text-white/50 ml-1">%</span>
+              <span className="text-sm text-slate-500 dark:text-white/50 ml-1">%</span>
             </div>
           </div>
         </div>
 
         {/* Runtime */}
         <div className="mt-3 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-white/50">
+          <div className="flex items-center gap-2 text-slate-500 dark:text-white/50">
             <Clock className="w-3 h-3" />
             <span>Runtime: {data.runtime}</span>
           </div>
@@ -273,7 +273,7 @@ export default function RealTimeInsights() {
     <section
       ref={containerRef}
       id="insights"
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-24 lg:py-32 overflow-hidden bg-white dark:bg-[#080810]"
     >
 
       <div className="section-content relative z-10">
@@ -283,27 +283,27 @@ export default function RealTimeInsights() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 dark:bg-white/5 border border-purple-200 dark:border-white/10 mb-6"
           >
-            <Activity className="w-4 h-4 text-cyan-400" />
-            <span className="text-sm text-white/70">Live Dashboard</span>
+            <Activity className="w-4 h-4 text-purple-500 dark:text-purple-400" />
+            <span className="text-sm text-purple-600 dark:text-white/70">Live Dashboard</span>
           </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="heading-2 text-white mb-6"
+            className="heading-2 text-slate-900 dark:text-white mb-6"
           >
             Real-time Insights for
-            <span className="text-gradient"> Every Machine</span>
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"> Every Machine</span>
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="body-large text-white/60"
+            className="body-large text-slate-600 dark:text-white/60"
           >
             Monitor all your industrial equipment in real-time with live data feeds,
             predictive analytics, and instant alerts for optimal performance.
@@ -318,9 +318,9 @@ export default function RealTimeInsights() {
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
         >
           {overviewStats.map((stat, index) => (
-            <div key={index} className="glass-enhanced rounded-xl p-4 border border-white/10">
+            <div key={index} className="bg-white dark:bg-[#0f1120] rounded-xl p-4 border border-slate-200 dark:border-purple-900/30 shadow-sm">
               <div className="flex items-center justify-between mb-2">
-                <stat.icon className="w-5 h-5 text-cyan-400" />
+                <stat.icon className="w-5 h-5 text-purple-500 dark:text-purple-400" />
                 <div className={`flex items-center gap-1 text-xs ${stat.trend === 'up' ? 'text-emerald-400' : 'text-amber-400'
                   }`}>
                   {stat.trend === 'up' ? (
@@ -331,8 +331,8 @@ export default function RealTimeInsights() {
                   {stat.change}
                 </div>
               </div>
-              <div className="text-2xl font-bold text-white">{stat.value}</div>
-              <div className="text-xs text-white/50">{stat.label}</div>
+              <div className="text-2xl font-bold text-slate-900 dark:text-white">{stat.value}</div>
+              <div className="text-xs text-slate-500 dark:text-white/50">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -342,12 +342,12 @@ export default function RealTimeInsights() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="glass-enhanced rounded-2xl p-6 border border-white/10 mb-8"
+          className="bg-white dark:bg-[#0f1120] rounded-2xl p-6 border border-slate-200 dark:border-purple-900/30 shadow-sm mb-8"
         >
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-white font-semibold">Overall Equipment Efficiency</h3>
-              <p className="text-sm text-white/50">Real-time performance tracking</p>
+              <h3 className="text-slate-900 dark:text-white font-semibold">Overall Equipment Efficiency</h3>
+              <p className="text-sm text-slate-500 dark:text-white/50">Real-time performance tracking</p>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-emerald-500" />

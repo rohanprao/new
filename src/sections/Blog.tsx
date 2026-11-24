@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const posts = [
@@ -24,52 +25,98 @@ const posts = [
   }
 ];
 
+const categories = ['All', 'Technology', 'Insights', 'Culture'];
+
 export default function Blog() {
+  const [activeFilter, setActiveFilter] = useState('All');
+
+  const filteredPosts = activeFilter === 'All'
+    ? posts
+    : posts.filter((p) => p.tag === activeFilter);
+
   return (
-    <section id="blog" className="w-full min-h-screen pt-32 pb-24 relative z-10 flex flex-col items-center">
-      <div className="max-w-7xl mx-auto px-6 w-full text-center">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 mb-6"
-        >
-          Our Blog
-        </motion.h2>
-        <p className="text-slate-400 max-w-2xl mx-auto text-lg mb-12">
-          Latest insights, product updates, and thought leadership from our engineering team.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-          {posts.map((post, i) => (
-            <motion.div 
-              key={i}
+    <section
+      id="blog"
+      className="w-full bg-white dark:bg-[#080810] pt-32 pb-24 relative z-10"
+    >
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        {/* Overline + Heading */}
+        <div className="text-center mb-10">
+          <span className="label-overline">Latest Insights</span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mt-3 mb-4"
+          >
+            Our Blog
+          </motion.h2>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
+            Latest insights, product updates, and thought leadership from our engineering team.
+          </p>
+        </div>
+
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveFilter(cat)}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                activeFilter === cat
+                  ? 'bg-purple-600 text-white shadow-md shadow-purple-500/20'
+                  : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {filteredPosts.map((post, i) => (
+            <motion.div
+              key={post.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer bg-white dark:bg-[#0f1120] rounded-2xl border border-slate-200 dark:border-purple-900/20 shadow-sm hover:-translate-y-2 hover:shadow-md transition-all duration-300 overflow-hidden"
             >
-              <div className="aspect-video w-full rounded-2xl overflow-hidden mb-6 relative border border-slate-800">
-                <img 
-                  src={post.img} 
-                  alt={post.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              {/* Image */}
+              <div className="aspect-video w-full overflow-hidden">
+                <img
+                  src={post.img}
+                  alt={post.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4 bg-purple-500 text-white text-[10px] font-black uppercase tracking-tighter px-2 py-1 rounded">
-                  {post.tag}
-                </div>
               </div>
-              <div className="px-1">
-                <p className="text-slate-500 text-sm mb-2">{post.date}</p>
-                <h3 className="text-xl font-bold text-slate-200 mb-3 group-hover:text-purple-400 transition-colors leading-tight">
+
+              {/* Content */}
+              <div className="p-6">
+                {/* Category chip */}
+                <span className="inline-block bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-4">
+                  {post.tag}
+                </span>
+
+                {/* Title */}
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-tight mb-3">
                   {post.title}
                 </h3>
-                <p className="text-slate-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+
+                {/* Excerpt */}
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed line-clamp-2 mb-6">
                   {post.desc}
                 </p>
-                <span className="text-purple-400 text-sm font-semibold inline-flex items-center group-hover:underline">
-                  Read Article <span className="ml-1 tracking-normal transition-transform group-hover:translate-x-1">→</span>
-                </span>
+
+                {/* Footer */}
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-purple-900/20">
+                  <span className="text-slate-500 dark:text-slate-500 text-xs">{post.date}</span>
+                  <span className="text-purple-600 dark:text-purple-400 text-sm font-semibold inline-flex items-center group-hover:gap-2 transition-all">
+                    Read Article <span className="ml-1 group-hover:translate-x-1 transition-transform inline-block">→</span>
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}

@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react';
-import { Toaster } from 'sonner';
+import { Toaster } from './components/ui/sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from './sections/Navbar';
-import Footer from './sections/Footer';
+import Header from './components/global/Header';
+import Footer from './components/global/Footer';
 import Home from './pages/Home';
-import AllResources from './sections/AllResources';
-import CaseStudies from './sections/CaseStudies';
-import Blog from './sections/Blog';
+import Solutions from './pages/Solutions';
+import Products from './pages/Products';
+import Industries from './pages/Industries';
+import Insights from './pages/Insights';
+import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import Careers from './pages/Careers';
 import Partnerships from './pages/Partnerships';
+import AllResources from './sections/AllResources';
+import CaseStudies from './sections/CaseStudies';
+import Blog from './sections/Blog';
+import CookieConsentBanner from './components/global/CookieConsentBanner';
+import Chatbot from './components/global/Chatbot';
 import './App.css';
 
 function App() {
@@ -25,11 +32,11 @@ function App() {
   useEffect(() => {
     setIsLoaded(true);
 
-    // Initialize Lenis smooth scroll with lerp-based smoothing
+    // Initialize Lenis smooth scroll engine
     const lenis = new Lenis({
-      lerp: 0.12,
+      lerp: 0.1,
       smoothWheel: true,
-      wheelMultiplier: 0.85,
+      wheelMultiplier: 0.9,
       touchMultiplier: 1.5,
       infinite: false,
     });
@@ -47,25 +54,8 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-background overflow-x-hidden">
-      {/* Animated Background */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Consolidated Static Gradient Orbs (No Animation) */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px] will-change-transform" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] will-change-transform" />
-
-        {/* Simplified Single-Layer Grid */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-            backgroundSize: '80px 80px'
-          }}
-        />
-
-      </div>
-
-      {/* Main Content */}
+    <div className="relative min-h-screen bg-[#090B10] text-slate-100 selection:bg-[#0062FF] selection:text-white overflow-x-hidden">
+      {/* Main App Layout */}
       <AnimatePresence mode="wait">
         {isLoaded && (
           <motion.div
@@ -73,24 +63,38 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 will-change-[opacity]"
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-10 flex flex-col min-h-screen justify-between"
           >
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/all-resources" element={<AllResources />} />
-              <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/about-us" element={<AboutUs />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/partnerships" element={<Partnerships />} />
-            </Routes>
+            <Header />
+            <div className="flex-1">
+              <Routes>
+                {/* Core Enterprise Pages */}
+                <Route path="/" element={<Home />} />
+                <Route path="/solutions" element={<Solutions />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/industries" element={<Industries />} />
+                <Route path="/insights" element={<Insights />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about-us" element={<AboutUs />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/partnerships" element={<Partnerships />} />
+
+                {/* Legacy & Resource Deep Links */}
+                <Route path="/case-studies" element={<CaseStudies />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/all-resources" element={<AllResources />} />
+              </Routes>
+            </div>
             <Footer />
+            {/* Global Cookie Consent Banner */}
+            <CookieConsentBanner />
+            {/* Global AI Chatbot */}
+            <Chatbot />
           </motion.div>
         )}
       </AnimatePresence>
-      <Toaster position="bottom-right" theme="dark" />
+      <Toaster position="bottom-right" />
     </div>
   );
 }
